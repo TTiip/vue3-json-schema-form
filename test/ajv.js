@@ -1,13 +1,12 @@
-import Ajv from 'ajv'
-import ajvFormats from 'ajv-formats'
-// import localize from 'ajv-i18n'
-import ajvErrors from 'ajv-errors'
+const Ajv = require('ajv')
+const ajvFormats = require('ajv-formats')
+// const localize = require('ajv-i18n')
 
 // 这里需要注意，如果使用了转换语言错误，则自定义的保存信息会失效，目前原因不清楚。
 // 估计是 ajv-i8n 这个库的在编写的时候 判断逻辑优先级提的很高。
 const ajv = new Ajv({ allErrors: true })
 ajvFormats(ajv)
-ajvErrors(ajv)
+require("ajv-errors")(ajv)
 
 ajv.addFormat('nameIsHaha', data => {
   return data === 'nameIsHaha'
