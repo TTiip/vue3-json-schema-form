@@ -123,6 +123,7 @@ export default defineConfig({
 
     // https://github.com/antfu/vite-plugin-components
     Components({
+      extensions: ['vue', 'js', 'jsx', 'ts', 'tsx'],
       dts: true
     }),
 
