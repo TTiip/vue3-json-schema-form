@@ -11,6 +11,7 @@ specifiers:
   '@vueuse/core': ^8.9.2
   ajv: ^8.11.0
   ajv-formats: ^2.1.1
+  ajv-i18n: ^4.2.0
   eslint: ^8.20.0
   jsdom: ^20.0.0
   pnpm: ^7.6.0
@@ -41,6 +42,7 @@ devDependencies:
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
   '@vitejs/plugin-vue-jsx': 1.3.10
   '@vue/test-utils': 2.0.2_vue@3.2.38
+  ajv-i18n: 4.2.0_ajv@8.11.0
   eslint: 8.23.0
   jsdom: 20.0.0
   pnpm: 7.9.5
@@ -1281,6 +1283,14 @@ packages:
     dependencies:
       ajv: 8.11.0
     dev: false
+
+  /ajv-i18n/4.2.0_ajv@8.11.0:
+    resolution: {integrity: sha512-v/ei2UkCEeuKNXh8RToiFsUclmU+G57LO1Oo22OagNMENIw+Yb8eMwvHu7Vn9fmkjJyv6XclhJ8TbuigSglPkg==}
+    peerDependencies:
+      ajv: ^8.0.0-beta.0
+    dependencies:
+      ajv: 8.11.0
+    dev: true
 
   /ajv/6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}

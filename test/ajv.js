@@ -1,5 +1,6 @@
 import Ajv from 'ajv'
 import ajvFormats from 'ajv-formats'
+import localize from 'ajv-i18n'
 
 const ajv = new Ajv()
 ajvFormats(ajv)
@@ -33,7 +34,7 @@ ajv.addKeyword({
   // },
   // 推荐使用下面这个！！！！！！
   // 编译阶段 返回一个 schema 添加到 使用自定义 keyword 的当前 schema 的配置中。
-  macro (sch, parentSchema) {
+  macro () {
     return {
       minLength: 10
     }
@@ -66,7 +67,7 @@ const schema = {
 }
 
 const data = {
-  name: 'nameIsHaha',
+  name: 'name',
   age: 18,
   pets: ['dog'],
   isWorker: true
@@ -75,5 +76,6 @@ const data = {
 const validate = ajv.compile(schema)
 const valid = validate(data)
 if (!valid) {
+  localize.zh(validate.errors)
   console.log(validate.errors)
 }
