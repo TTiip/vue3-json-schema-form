@@ -1,9 +1,13 @@
 import Ajv from 'ajv'
 import ajvFormats from 'ajv-formats'
-import localize from 'ajv-i18n'
+// import localize from 'ajv-i18n'
+import ajvErrors from 'ajv-errors'
 
-const ajv = new Ajv()
+// 这里需要注意，如果使用了转换语言错误，则自定义的保存信息会失效，目前原因不清楚。
+// 估计是 ajv-i8n 这个库的在编写的时候 判断逻辑优先级提的很高。
+const ajv = new Ajv({ allErrors: true })
 ajvFormats(ajv)
+ajvErrors(ajv)
 
 ajv.addFormat('nameIsHaha', data => {
   return data === 'nameIsHaha'
@@ -47,9 +51,14 @@ const schema = {
   properties: {
     name: {
       type: 'string',
-      // minLength: 10,
-      format: 'nameIsHaha',
-      nameKeyword: false
+      minLength: 10,
+      // format: 'nameIsHaha',
+      // nameKeyword: false,
+      errorMessage: {
+        // 这里 的属性必须是直接写在 schema 下的属性，不能通过 macro 方法添加！！！
+        type: '必须是字符串',
+        minLength: '长度必须大于10'
+      }
     },
     age: {
       type: 'number'
@@ -76,6 +85,7 @@ const data = {
 const validate = ajv.compile(schema)
 const valid = validate(data)
 if (!valid) {
-  localize.zh(validate.errors)
+  // 自定义错误信息的时候不能使用 错误语言转换。
+  // localize.zh(validate.errors)
   console.log(validate.errors)
 }
