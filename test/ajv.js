@@ -1,8 +1,13 @@
 import Ajv from 'ajv'
-import addFormats from 'ajv-formats'
+import ajvFormats from 'ajv-formats'
 
 const ajv = new Ajv()
-addFormats(ajv)
+ajvFormats(ajv)
+
+ajv.addFormat('nameIsHaha', data => {
+  console.log(data, 'data11')
+  return data === 'nameIsHaha'
+})
 
 const schema = {
   type: 'object',
@@ -11,7 +16,7 @@ const schema = {
     name: {
       type: 'string',
       minLength: 10,
-      format: 'email'
+      format: 'nameIsHaha'
     },
     age: {
       type: 'number'
@@ -29,7 +34,7 @@ const schema = {
 }
 
 const data = {
-  name: 'name123456@qq.com',
+  name: 'nameIsHaha',
   age: 18,
   pets: ['dog'],
   isWorker: true
