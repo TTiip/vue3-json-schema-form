@@ -5,8 +5,39 @@ const ajv = new Ajv()
 ajvFormats(ajv)
 
 ajv.addFormat('nameIsHaha', data => {
-  console.log(data, 'data11')
   return data === 'nameIsHaha'
+})
+
+ajv.addKeyword({
+  keyword: 'nameKeyword',
+  // 定义关键字的类型
+  // metaSchema: {
+  //   type: 'number'
+  // }
+  // 通用模式。
+  // validate: (schame, data) => {
+  //   // 这里传进来的可以是任何东西，所以不能直接使用 if(schame) 进行判断。
+  //   if (schame === true) {
+  //     return true
+  //   } else {
+  //     return data.length === 10
+  //   }
+  // },
+  // 以下为更多功能
+  // compile (sch, parentSchema) {
+  //   console.log(sch, parentSchema)
+  //   return () => true
+  //   // return parentSchema.exclusiveRange === true
+  //   //   ? data => data > min && data < max
+  //   //   : data => data >= min && data <= max
+  // },
+  // 推荐使用下面这个！！！！！！
+  // 编译阶段 返回一个 schema 添加到 使用自定义 keyword 的当前 schema 的配置中。
+  macro (sch, parentSchema) {
+    return {
+      minLength: 10
+    }
+  }
 })
 
 const schema = {
@@ -15,8 +46,9 @@ const schema = {
   properties: {
     name: {
       type: 'string',
-      minLength: 10,
-      format: 'nameIsHaha'
+      // minLength: 10,
+      format: 'nameIsHaha',
+      nameKeyword: false
     },
     age: {
       type: 'number'
