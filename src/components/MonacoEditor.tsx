@@ -92,7 +92,7 @@ export default defineComponent({
     })
 
     return () => (
-      <div className="border rounded-5px flex flex-col">
+      <div className="border border-color-#eee rounded-5px flex flex-col">
         <div className="bg-#eee p-y[10px] pl-20px">
           <span>{props.title}</span>
         </div>
